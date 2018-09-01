@@ -48,7 +48,7 @@ A role' tasks **MUST** be flagged with at least one of the following tags:
 ``setup``:
     All 'once and for all' tasks (installing packages, generating keys, etc.)
 
-``configuration``:
+``config``:
     Anything related to writing configuration files
 
 ``app``:
@@ -71,4 +71,4 @@ Example:
       file:
         src: nginx.conf
         dest: /etc/nginx/nginx.conf
-      tags: [configuration]
+      tags: [config]
