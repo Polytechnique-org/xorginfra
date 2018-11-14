@@ -1,0 +1,19 @@
+---
+
+# Account-related data
+
+accounts:
+  groups:
+    primary: "users"
+    root: "adm"
+
+  users:
+    x2011berger:
+      fullname: "Victor Berger"
+      password: "{{ vault.accounts.x2011berger_password }}"
+      root: true
+
+    x2006barrois:
+      fullname: "Raphaël Barrois"
+      password: "{{ vault.accounts.x2006barrois_password }}"
+      root: true

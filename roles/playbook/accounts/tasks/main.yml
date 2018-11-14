@@ -1,0 +1,31 @@
+---
+
+- name: "Create users"
+  user:
+    name: "{{ item.key }}"
+    password: "{{ item.value.password }}"
+    group: "{{ accounts.groups.primary }}"
+    comment: "{{ item.value.fullname }}"
+    state: "present"
+  loop: "{{ accounts.users | dict2items }}"
+
+- name: "Set user groups for roots"
+  user:
+    name: "{{ item.key }}"
+    groups: "{{ accounts.groups.root }}"
+  loop: "{{ accounts.users | dict2items }}"
+  when: "item.value.root"
+
+- name: "Set user groups for non-roots"
+  user:
+    name: "{{ item.key }}"
+    groups: ""
+  loop: "{{ accounts.users | dict2items }}"
+  when: "not item.value.root"
+
+- name: "Deploy .ssh/authorized_keys"
+  authorized_key:
+    user: "{{ item.key }}"
+    key: "{{ lookup('file', 'ssh-keys/%s.pub' % item.key) }}"
+    #{{ item.value.ssh_keys | join('\n') }}"
+  loop: "{{ accounts.users | dict2items }}"
