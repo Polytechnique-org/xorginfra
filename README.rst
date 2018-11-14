@@ -29,13 +29,13 @@ Structure
     A standard playbook.
     It should only link together a group of hosts, variables, and roles from the ``roles/`` folder.
 
-``roles/foo/``:
+``roles/playbook/foo/``:
     A playbook-related role. Describes all tasks for a server with that role.
 
-``roles/include/``:
+``roles/include-many/``:
     A role that could be included several times in the same playbook (e.g setting up a vhost)
 
-``roles/shared/``:
+``roles/include-once/``:
     A role that installs system-wide elements.
     Those roles **MUST NOT** take any parameters (except listed in ``host_vars``), since they may be applied
     from several groups.

@@ -8,6 +8,7 @@
     comment: "{{ item.value.fullname }}"
     state: "present"
   loop: "{{ accounts.users | dict2items }}"
+  tags: [config]
 
 - name: "Set user groups for roots"
   user:
@@ -15,6 +16,7 @@
     groups: "{{ accounts.groups.root }}"
   loop: "{{ accounts.users | dict2items }}"
   when: "item.value.root"
+  tags: [config]
 
 - name: "Set user groups for non-roots"
   user:
@@ -22,6 +24,7 @@
     groups: ""
   loop: "{{ accounts.users | dict2items }}"
   when: "not item.value.root"
+  tags: [config]
 
 - name: "Deploy .ssh/authorized_keys"
   authorized_key:
@@ -29,3 +32,4 @@
     key: "{{ lookup('file', 'ssh-keys/%s.pub' % item.key) }}"
     #{{ item.value.ssh_keys | join('\n') }}"
   loop: "{{ accounts.users | dict2items }}"
+  tags: [config]

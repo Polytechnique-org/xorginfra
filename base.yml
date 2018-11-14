@@ -2,4 +2,4 @@
 - hosts: all
   become: "yes"
   roles:
-    - role: accounts
+    - { role: accounts, tags: accounts }
